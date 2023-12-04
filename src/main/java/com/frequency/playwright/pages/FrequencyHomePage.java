@@ -8,18 +8,11 @@ public class FrequencyHomePage {
     private Page page;
     private Page.WaitForSelectorOptions isVisible;
 
-    private static class Locators {
-        // I noticed that more than one element on the page matched the href locators
-        // Initially I found some locators to the correct links by specifying
-        // that it needs a child element with .dropdown-toggle-text class
-        // private static String topNavWorkflow = "a[href='/workflow'] .dropdown-toggle-text";
-        // However that didn't work for the "Distribution" link which has no dropdown
-
-        // Then I realized that I should explicitly specify that I do not want the mobile versions...
-        private static String topNavWorkflow = "a[href='/workflow']:not(.mobile-nav)";
+    public static class Locators {
+        public static String topNavWorkflow = "a[href='/workflow']:not(.mobile-nav) .dropdown-toggle-text";
         private static String topNavDistribution = "a[href='/distribution']:not(.mobile-nav)";
-        private static String topNavCopmany = "a[href='/about-us']:not(.mobile-nav)";
-        private static String topNavSupport = "a[href*='support.frequency.com']:not(.mobile-nav)";
+        private static String topNavCompany = "a[href='/about-us']:not(.mobile-nav) .dropdown-toggle-text";
+        private static String topNavSupport = "a[href*='support.frequency.com']:not(.mobile-nav) .dropdown-toggle-text";
     }
 
     public FrequencyHomePage(Page page) {
@@ -27,6 +20,9 @@ public class FrequencyHomePage {
         isVisible = new Page.WaitForSelectorOptions()
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(10000);
+        // I like WaitForSelectorOptions because it lets us set whatever timeout we want for the performance threshold
+        // I can set other variables equal to other conditions (visible, detached, etc) and different timeouts
+        // see page.waitForSelector() calls in the validateTopMenu method for usage
     }
 
     public void validateHomePage() {
@@ -37,7 +33,7 @@ public class FrequencyHomePage {
     }
 
     public void validateTopMenu() {
-        page.waitForSelector(Locators.topNavCopmany, isVisible);
+        page.waitForSelector(Locators.topNavCompany, isVisible);
         page.waitForSelector(Locators.topNavDistribution, isVisible);
         page.waitForSelector(Locators.topNavSupport, isVisible);
         page.waitForSelector(Locators.topNavWorkflow, isVisible);
