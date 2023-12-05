@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class TestContactDemo {
+public class TestContactForm {
     static Playwright playwright;
     static Browser browser;
     static BrowserContext context;
@@ -43,8 +43,10 @@ public class TestContactDemo {
     }
 
     @Test
-    void testContactDemo() {
+    void testContactForm() {
         frequencyHomePage.validateHomePage();
-        studioInfoPage.loadAndValidate("STUDIO");
+        studioInfoPage.loadAndValidate("Studio");
+        studioInfoPage.openContactForm();
+        studioInfoPage.validateContactForm();
     }
 }

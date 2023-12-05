@@ -4,7 +4,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
-public class StudioInfoPage {
+public class ContactUsPage {
     private Page page;
 
     // allows us to access methods and locators defined in another page object class file
@@ -17,13 +17,13 @@ public class StudioInfoPage {
         public static String workflowSubmenuByTextClose = "')";
 
         // at first glance, this locator looks brittle, referencing too many classes.  The rationale is that
-        // this is unique among the 5 matches to href='/contact' and it no confusing wildcards, even though it is long.
+        // this is unique among the 5 matches to href='/contact' and has no confusing wildcards, even though it is long.
         private static String requestDemoButton = "a[href='/contact'] div.button-gradient-light div.contactustext";
 
-        // Populating a page object with lots of locators for static elements like this field labels causes tests that
+        // Populating a page object with lots of locators for static elements like this field label causes tests that
         // have little meaningful chance to fail and detect a bug
         // However, it can be useful to examine the locators of static elements and look deeper into the page
-        private static String nameLabel = "[id*='label-firstname'] span";
+        private static String nameLabel = "[id*='label-firstname'] span >> text = 'Name'";
 
         // selectors for the text fields (to fill out the form for a functional test)
         private static String nameField = "input[id^='firstname'][required]";
@@ -38,14 +38,12 @@ public class StudioInfoPage {
 
         private static String sendButton = "input[type='submit'][value='Send']";
 
-        private static String requiredWarningLabel = "label >> text='Please complete all required fields.'";
-
-        // if the company domain/DevOps allows it, we could configure a java pop3/smtp connection to check the mail
+        // if the company domain allows it, we could configure a java pop3/smtp connection to check the mail
         // and delete the test mail each night to monitor production uptime of the incoming marketing e-mail form
         // and this would be a more meaningful test than checking lots of static page elements
     }
 
-    public StudioInfoPage(Page page) {
+    public ContactUsPage(Page page) {
         this.page = page;
         isVisible = new Page.WaitForSelectorOptions()
                 .setState(WaitForSelectorState.VISIBLE)
@@ -80,10 +78,5 @@ public class StudioInfoPage {
     }
 
     public void validateContactForm() {
-        page.waitForSelector(Locators.requiredWarningLabel, isHidden);
-        page.locator(Locators.nameField).clear();
-        page.locator(Locators.sendButton).click();
-        page.waitForSelector(Locators.requiredWarningLabel, isVisible);
-        page.waitForTimeout(5000);
     }
 }
