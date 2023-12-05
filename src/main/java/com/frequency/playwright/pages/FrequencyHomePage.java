@@ -22,9 +22,8 @@ public class FrequencyHomePage {
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(10000);
         // I like WaitForSelectorOptions because it lets us set whatever timeout we want for the performance threshold
-        // I can set other variables equal to other conditions (visible, detached, etc) and different timeouts
+        // We can set other variables equal to other conditions (visible, detached, etc) and different timeouts
         // see page.waitForSelector() calls in the validateTopMenu method for usage
-
     }
 
     public void validateHomePage() {

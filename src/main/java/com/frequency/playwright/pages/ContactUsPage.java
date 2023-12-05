@@ -67,16 +67,4 @@ public class ContactUsPage {
 
         page.waitForSelector(Locators.requestDemoButton, isVisible);
     }
-
-    public void openContactForm() {
-        page.locator(Locators.requestDemoButton).scrollIntoViewIfNeeded();
-        page.locator(Locators.requestDemoButton).click();
-        page.waitForLoadState(LoadState.NETWORKIDLE);
-        page.waitForSelector(Locators.nameLabel, isVisible);
-        page.waitForSelector(Locators.linearChannelsYes, isVisible);
-        page.waitForSelector(Locators.sendButton, isVisible);
-    }
-
-    public void validateContactForm() {
-    }
 }

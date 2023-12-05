@@ -94,7 +94,7 @@ public class StudioInfoPage {
 
         fillFrameElement(Locators.ContactFrame.nameField, "Frequency Tester");
         fillFrameElement(Locators.ContactFrame.companyField, "TestCompany, LLC");
-        fillFrameElement(Locators.ContactFrame.nameField, "8675309");
+        fillFrameElement(Locators.ContactFrame.phoneField, "8675309");
 
         Assert.assertTrue(isFrameElementVisible(Locators.ContactFrame.emailField));
         Assert.assertTrue(isFrameElementVisible(Locators.ContactFrame.phoneField));
