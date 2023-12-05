@@ -42,7 +42,12 @@ public class TestHome {
     }
 
     @Test
-    void testPlaywrightOpens() {
+    void testHomePage() {
         frequencyHomePage.validateHomePage();
+    }
+
+    @Test
+    void testWorkflowMenu() {
+        frequencyHomePage.validateWorkflowLinks();
     }
 }

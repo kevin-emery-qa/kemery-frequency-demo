@@ -12,9 +12,9 @@ public class StudioInfoPage {
     private Page.WaitForSelectorOptions isVisible;
     private Page.WaitForSelectorOptions isHidden;
 
-    private static class Locators {
-        private static String workflowSubmenuByText = "nav.workflow.dropdown-list a:has-text('";
-        private static String workflowSubmenuByTextClose = "')";
+    public static class Locators {
+        public static String workflowSubmenuByText = "nav.workflow.dropdown-list a:has-text('";
+        public static String workflowSubmenuByTextClose = "')";
 
         // at first glance, this locator looks brittle, referencing too many classes.  The rationale is that
         // this is unique among the 5 matches to href='/contact' and it no confusing wildcards, even though it is long.
@@ -23,7 +23,6 @@ public class StudioInfoPage {
 
     public StudioInfoPage(Page page) {
         this.page = page;
-        frequencyHomePage = new FrequencyHomePage(page);
         isVisible = new Page.WaitForSelectorOptions()
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(10000);
@@ -36,12 +35,18 @@ public class StudioInfoPage {
         page.navigate("http://frequency.com/");
         page.waitForLoadState(LoadState.NETWORKIDLE);
 
-        frequencyHomePage.validateTopMenu();
+        frequencyHomePage = new FrequencyHomePage(page);
+        frequencyHomePage.validateTopMenuVisibility();
         page.hover(FrequencyHomePage.Locators.topNavWorkflow);
         String pageLink = Locators.workflowSubmenuByText + workflowMenuOption + Locators.workflowSubmenuByTextClose;
         page.waitForSelector(pageLink, isVisible);
         page.locator(pageLink).click();
         page.waitForSelector(pageLink, isHidden);
+
+        page.waitForSelector(Locators.requestDemoButton, isVisible);
+    }
+
+    public void openDemoContact() {
         page.locator(Locators.requestDemoButton).scrollIntoViewIfNeeded();
         page.locator(Locators.requestDemoButton).click();
         page.waitForTimeout(1000);
