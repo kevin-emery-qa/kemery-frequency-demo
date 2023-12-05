@@ -45,6 +45,6 @@ public class TestContactDemo {
     @Test
     void testContactDemo() {
         frequencyHomePage.validateHomePage();
-        studioInfoPage.loadAndValidate("Studio");
+        studioInfoPage.loadAndValidate("STUDIO");
     }
 }

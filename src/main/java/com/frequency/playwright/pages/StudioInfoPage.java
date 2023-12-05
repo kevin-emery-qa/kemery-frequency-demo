@@ -15,6 +15,10 @@ public class StudioInfoPage {
     private static class Locators {
         private static String workflowSubmenuByText = "nav.workflow.dropdown-list a:has-text('";
         private static String workflowSubmenuByTextClose = "')";
+
+        // at first glance, this locator looks brittle, referencing too many classes.  The rationale is that
+        // this is unique among the 5 matches to href='/contact' and it no confusing wildcards, even though it is long.
+        private static String requestDemoButton = "a[href='/contact'] div.button-gradient-light div.contactustext";
     }
 
     public StudioInfoPage(Page page) {
@@ -38,6 +42,8 @@ public class StudioInfoPage {
         page.waitForSelector(pageLink, isVisible);
         page.locator(pageLink).click();
         page.waitForSelector(pageLink, isHidden);
-        page.waitForTimeout(5000);
+        page.locator(Locators.requestDemoButton).scrollIntoViewIfNeeded();
+        page.locator(Locators.requestDemoButton).click();
+        page.waitForTimeout(1000);
     }
 }
